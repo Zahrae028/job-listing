@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const profilePositionInput = document.getElementById('profile-position');
     const skillInput = document.getElementById('skill-input');
     const profileSkillsList = document.getElementById('profile-skills-list');
-
     // DOM Elements - Tabs
     const tabsNav = document.querySelector('.tabs-nav');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -214,6 +213,32 @@ document.addEventListener('DOMContentLoaded', () => {
         //     <span>${skill}</span>
         //     <button class="profile-skill-remove" aria-label="Remove skill ${skill}">✕</button>
         //  </li>`
+
+ 
+        // console.log(userProfile.skills);
+        profileSkillsList.innerHTML = ""
+        
+        for (let i = 0; i < userProfile.skills.length; i++) {
+                 profileSkillsList.innerHTML += `<li class="profile-skill-tag" data-skill="${userProfile.skills[i]}">
+            <span>${userProfile.skills[i]}</span>
+             <button class="profile-skill-remove" id="remove-button" aria-label="Remove skill ${userProfile.skills[i]}">✕</button>
+          </li>`
+
+        }
+
+        // const removeSkillButton = document.querySelector(".profile-skill-remove");
+
+        // removeSkillButton.addEventListener("click",(e)=>{
+        //     e.preventDefault()
+        //     console.log("hello");
+        //        const skill = e.target.getAttribute("data-skill"); 
+        //         const index = userProfile.skills.indexOf(skill);
+        //     userProfile.skills.splice(index,1);
+        //     console.log(userProfile.skills)
+            
+            
+        // })
+        
     };
 
     /**
@@ -222,6 +247,17 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const renderProfileForm = () => {
         // TODO: Populate form fields with saved profile data
+
+
+        // const saveBtn = document.querySelector("profile-form__save-btn")
+        // saveBtn.addEventListener("click", (e)=>{
+        //     preventDefault()
+        //     userProfile.name = profileNameInput.value;
+        //     userProfile.position = profilePositionInput.value;
+        // })
+        
+        
+
     };
 
     /**
@@ -254,20 +290,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-        skillInput.addEventListener("keydown" , (event)=>{
-            event.preventDefault(); 
-            if (event.code==="Enter") {
-           
-            console.log("hello")
-                console.log("hello")
-
-                
-                userProfile.skills.push(skillInput.value)
-                renderProfileSkills()
-
-            }
-        })
     };
+
+    
+      skillInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault(); 
+        console.log(skillInput.value);
+        
+        if (skillInput.value.trim() !="") {
+            userProfile.skills.push(skillInput.value);
+             renderProfileSkills();
+        }
+       
+        
+        skillInput.value = ""; 
+    }
+});
+  
+       
+        
 
     /**
      * Handles removing skills
@@ -280,8 +322,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Get skill name
         // 3. Remove from profile
         // 4. Re-render and apply filters
+        
+        
+        
+       
     };
 
+    
     // ------------------------------------
     // --- FAVORITES MANAGEMENT ---
     // ------------------------------------
