@@ -87,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const jobSkillsInput = document.getElementById('job-skills');
     const jobDescriptionInput = document.getElementById('job-description');
 
+  
+    
+
+
     // ------------------------------------
     // --- DATA MANAGEMENT ---
     // ------------------------------------
@@ -244,10 +248,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Get skill value
         // 3. Add to profile if not duplicate
         // 4. Re-render skills and apply filters
-        skillInput.addEventListener("keydown" , (e)=>{
-            if (e.key==enter) {
-                console.log(skillInput.value)
+
+
+
+
+
+
+        skillInput.addEventListener("keydown" , (event)=>{
+            event.preventDefault(); 
+            if (event.code==="Enter") {
+           
+            console.log("hello")
+                console.log("hello")
+
+                
                 userProfile.skills.push(skillInput.value)
+                renderProfileSkills()
+
             }
         })
     };
@@ -471,6 +488,47 @@ console.log(favoriteJobIds)
         //  </li>`
     };
 
+
+    
+        const submitButton = document.getElementById("save-job-btn");
+
+
+
+                submitButton.addEventListener("click", (e) => {
+                    e.preventDefault(); 
+                    let value =jobSkillsInput.value;
+                    let parts = value.trim().split(",");
+                    
+                    const newId = allJobs.length +1;
+                    console.log(newId);
+
+                let newObj = {
+                id : newId  ,
+                company : jobCompanyInput.value,
+                logo: jobLogoInput.value,
+                new: true,
+                featured: true,
+                position: jobPositionInput.value,
+                role: jobRoleInput.value,
+                level: jobLevelInput.value,
+                postedAt: "today",
+                contract: jobContractInput.value,
+                location: jobLocationInput.value ,
+                skills: parts,
+                description: jobDescriptionInput.value
+
+                }
+                if (jobCompanyInput.value==="" || jobPositionInput.value==="" || jobRoleInput.value==="" || jobLevelInput.value==="" || jobContractInput.value==="" ||jobLocationInput.value==="") {
+                        console.log("make sure all informations are written")
+                        window.alert("make sure all informations are written")
+                }else{
+                    allJobs.push(newObj);
+                }
+                
+            });
+
+            
+            
     /**
      * Handles job form submission (add/edit)
      * @function handleManageFormSubmit
@@ -484,6 +542,12 @@ console.log(favoriteJobIds)
         // 4. Add new job or update existing
         // 5. Save to localStorage
         // 6. Update UI and close modal
+
+    
+        
+
+        // newjob.add()
+    
     };
 
     /**
